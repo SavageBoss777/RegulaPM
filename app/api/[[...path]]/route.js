@@ -38,7 +38,7 @@ function corsHeaders() {
 
 // ========== GEMINI AI ==========
 async function callGemini(prompt) {
-  const response = await genAI.models.generateContent({
+  const response = await getGenAI().models.generateContent({
     model: 'gemini-2.5-flash',
     contents: prompt,
     config: {
