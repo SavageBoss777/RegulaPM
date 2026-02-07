@@ -111,11 +111,14 @@ backend:
     file: "app/api/[[...path]]/route.js"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: true
         agent: "main"
         comment: "POST /api/auth/signup creates user with bcryptjs hashed password, returns session cookie"
+      - working: true
+        agent: "testing"
+        comment: "✅ TESTED: Successfully creates new users with unique emails, returns proper JSON response with user data and sets session_token cookie correctly"
 
   - task: "Auth - Login"
     implemented: true
