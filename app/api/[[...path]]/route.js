@@ -4,7 +4,13 @@ import { v4 as uuidv4 } from 'uuid';
 import bcrypt from 'bcryptjs';
 import { GoogleGenAI } from '@google/genai';
 
-const genAI = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+let _genAI = null;
+function getGenAI() {
+  if (!_genAI) {
+    _genAI = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+  }
+  return _genAI;
+}
 
 // ========== AUTH HELPERS ==========
 async function getUser(request) {
