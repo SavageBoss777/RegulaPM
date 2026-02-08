@@ -413,10 +413,10 @@ export default function BriefWorkspace() {
                     {Object.entries(brief.stakeholder_critiques).map(([name, data]) => {
                       const Icon = STAKEHOLDER_ICONS[name] || Users;
                       return (
-                        <div key={name} className="bg-white rounded-2xl border border-gray-200 p-6">
-                          <div className="flex items-center justify-between mb-4">
+                        <div key={name} className="bg-white rounded-[18px] border border-[#E5E7EB] p-6">
+                          <div className="flex items-center justify-between mb-5">
                             <div className="flex items-center gap-3">
-                              <div className="w-10 h-10 rounded-xl bg-[#3B4F6B]/5 flex items-center justify-center">
+                              <div className="w-10 h-10 rounded-xl bg-[#3B4F6B]/[0.06] flex items-center justify-center">
                                 <Icon className="w-5 h-5 text-[#3B4F6B]" />
                               </div>
                               <h3 className="font-semibold text-[#111827]">{name}</h3>
