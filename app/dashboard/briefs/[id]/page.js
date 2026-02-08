@@ -733,7 +733,7 @@ export default function BriefWorkspace() {
                       <h3 className="font-semibold text-[#111827] mb-1">Download Markdown</h3>
                       <p className="text-xs text-[#111827]/40">Download as .md file</p>
                     </button>
-                    <button onClick={handleDownloadJSON} className="bg-white rounded-[18px] border border-[#E5E7EB] p-6 text-left hover:shadow-[0_4px_20px_rgba(17,24,39,0.04)] transition-all">
+                    <button onClick={handleDownloadJSON} className="card-hover bg-white rounded-[18px] border border-[#E5E7EB] p-6 text-left transition-all">
                       <div className="w-10 h-10 rounded-xl bg-purple-50 flex items-center justify-center mb-4"><FileText className="w-5 h-5 text-purple-600" /></div>
                       <h3 className="font-semibold text-[#111827] mb-1">Download JSON</h3>
                       <p className="text-xs text-[#111827]/40">Full structured data export</p>
