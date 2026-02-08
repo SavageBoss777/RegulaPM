@@ -77,9 +77,9 @@ function layoutGraph(graphData) {
 
 // ========== STATUS HELPERS ==========
 const STATUS_CONFIG = {
-  approved: { label: 'Approved', class: 'bg-[#3B4F6B]/10 text-[#3B4F6B]' },
-  needs_review: { label: 'Needs Review', class: 'bg-[#E5E7EB] text-[#111827]/60' },
-  risk_identified: { label: 'Risk Identified', class: 'bg-[#111827]/10 text-[#111827]/70' },
+  approved: { label: 'Approved', class: 'bg-green-50 text-green-700' },
+  needs_review: { label: 'Needs Review', class: 'bg-amber-50 text-amber-700' },
+  risk_identified: { label: 'Risk Identified', class: 'bg-red-50 text-red-700' },
 };
 
 const RISK_CONFIG = {
