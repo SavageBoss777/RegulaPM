@@ -35,19 +35,19 @@ const STAKEHOLDER_ICONS = {
 };
 
 const NODE_COLORS = {
-  feature: { bg: 'bg-blue-50', border: 'border-[#3B4F6B]', text: 'text-[#3B4F6B]' },
-  risk: { bg: 'bg-red-50', border: 'border-red-400', text: 'text-red-700' },
-  compliance: { bg: 'bg-amber-50', border: 'border-amber-400', text: 'text-amber-700' },
-  stakeholder: { bg: 'bg-green-50', border: 'border-green-400', text: 'text-green-700' },
-  metric: { bg: 'bg-purple-50', border: 'border-purple-400', text: 'text-purple-700' },
+  feature: { bg: 'bg-[#3B4F6B]/[0.08]', border: 'border-[#3B4F6B]', text: 'text-[#3B4F6B]' },
+  risk: { bg: 'bg-[#111827]/[0.04]', border: 'border-[#111827]/40', text: 'text-[#111827]/70' },
+  compliance: { bg: 'bg-[#3B4F6B]/[0.04]', border: 'border-[#3B4F6B]/30', text: 'text-[#3B4F6B]/80' },
+  stakeholder: { bg: 'bg-[#E5E7EB]/50', border: 'border-[#3B4F6B]/20', text: 'text-[#3B4F6B]/70' },
+  metric: { bg: 'bg-white', border: 'border-[#E5E7EB]', text: 'text-[#111827]/50' },
 };
 
 function CustomNode({ data }) {
   const colors = NODE_COLORS[data.nodeType] || NODE_COLORS.feature;
   return (
-    <div className={`px-4 py-3 rounded-xl border-2 shadow-sm ${colors.bg} ${colors.border} min-w-[150px] max-w-[200px]`}>
-      <div className={`text-[10px] font-bold uppercase tracking-wider ${colors.text} mb-1`}>{data.nodeType}</div>
-      <div className="text-xs font-semibold text-gray-900 leading-tight">{data.label}</div>
+    <div className={`px-4 py-3 rounded-[14px] border-2 shadow-sm ${colors.bg} ${colors.border} min-w-[150px] max-w-[200px]`}>
+      <div className={`text-[10px] font-semibold uppercase tracking-wider ${colors.text} mb-1 font-mono-ui`}>{data.nodeType}</div>
+      <div className="text-xs font-semibold text-[#111827] leading-tight">{data.label}</div>
     </div>
   );
 }
