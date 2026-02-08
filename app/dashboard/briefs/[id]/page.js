@@ -83,9 +83,9 @@ const STATUS_CONFIG = {
 };
 
 const RISK_CONFIG = {
-  high: { label: 'High Risk', class: 'bg-[#111827]/10 text-[#111827]' },
-  medium: { label: 'Medium', class: 'bg-[#E5E7EB] text-[#111827]/60' },
-  low: { label: 'Low', class: 'bg-[#3B4F6B]/10 text-[#3B4F6B]' },
+  high: { label: 'High Risk', class: 'bg-red-50 text-red-700' },
+  medium: { label: 'Medium', class: 'bg-amber-50 text-amber-700' },
+  low: { label: 'Low', class: 'bg-green-50 text-green-700' },
 };
 
 const RECOMMENDATION_LABELS = {
