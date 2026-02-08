@@ -21,7 +21,9 @@ export default function LoginPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
       });
-      const data = await res.json();
+      let data;
+      const text = await res.text();
+      try { data = JSON.parse(text); } catch { throw new Error('Server returned an invalid response. Please try again.'); }
       if (!res.ok) throw new Error(data.error || 'Login failed');
       router.push('/dashboard');
     } catch (err) {
