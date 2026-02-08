@@ -653,7 +653,7 @@ export default function BriefWorkspace() {
                             <p className="text-sm text-[#111827]/70">{a.description}</p>
                             <div className="flex items-center gap-3 mt-2">
                               <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#E5E7EB]/50 text-[#111827]/40 capitalize font-mono-ui">{a.source}</span>
-                              <span className={`text-[10px] px-2 py-0.5 rounded-full font-medium ${a.confidence === 'high' ? 'bg-[#3B4F6B]/10 text-[#3B4F6B]' : a.confidence === 'low' ? 'bg-[#111827]/10 text-[#111827]/70' : 'bg-[#E5E7EB] text-[#111827]/50'}`}>{a.confidence} confidence</span>
+                              <span className={`text-[10px] px-2 py-0.5 rounded-full font-medium ${a.confidence === 'high' ? 'bg-green-50 text-green-700' : a.confidence === 'low' ? 'bg-red-50 text-red-700' : 'bg-amber-50 text-amber-700'}`}>{a.confidence} confidence</span>
                               <span className="text-[10px] text-[#111827]/20 font-mono-ui">{new Date(a.created_at).toLocaleDateString()}</span>
                             </div>
                           </div>
