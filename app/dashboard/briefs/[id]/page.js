@@ -379,24 +379,24 @@ export default function BriefWorkspace() {
             {/* PRD Tab */}
             {activeTab === 'prd' && brief.prd_sections && (
               <div className="flex h-full">
-                <div className="w-56 border-r border-gray-200 bg-white p-3 overflow-auto">
-                  <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider px-2 mb-2">Sections</p>
+                <div className="w-56 border-r border-[#E5E7EB] bg-white p-3 overflow-auto">
+                  <p className="text-[10px] font-semibold text-[#111827]/30 uppercase tracking-widest px-2 mb-3">Sections</p>
                   {Object.entries(SECTION_LABELS).map(([key, label]) => (
-                    <button key={key} onClick={() => setActiveSection(key)} className={`w-full text-left px-3 py-2 rounded-xl text-sm transition-colors ${activeSection === key ? 'bg-[#3B4F6B]/5 text-[#3B4F6B] font-medium' : 'text-gray-600 hover:bg-gray-50'}`}>
+                    <button key={key} onClick={() => setActiveSection(key)} className={`w-full text-left px-3 py-2 rounded-[12px] text-sm transition-colors ${activeSection === key ? 'bg-[#3B4F6B]/[0.06] text-[#3B4F6B] font-medium' : 'text-[#111827]/60 hover:bg-[#E5E7EB]/30'}`}>
                       {label}
                     </button>
                   ))}
                 </div>
                 <div className="flex-1 p-8 overflow-auto">
                   <div className="max-w-3xl mx-auto">
-                    <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center justify-between mb-5">
                       <h2 className="text-xl font-bold text-[#111827]">{SECTION_LABELS[activeSection]}</h2>
-                      <button onClick={() => handleRegenerateSection(activeSection)} disabled={regenerating === activeSection} className="text-xs px-3 py-1.5 rounded-full border border-gray-200 text-gray-500 hover:bg-gray-50 flex items-center gap-1 disabled:opacity-50">
+                      <button onClick={() => handleRegenerateSection(activeSection)} disabled={regenerating === activeSection} className="text-xs px-3 py-1.5 rounded-full border border-[#E5E7EB] text-[#111827]/40 hover:bg-[#E5E7EB]/30 flex items-center gap-1 disabled:opacity-50 transition-colors">
                         {regenerating === activeSection ? <Loader2 className="w-3 h-3 animate-spin" /> : <RefreshCw className="w-3 h-3" />}
                         Regenerate
                       </button>
                     </div>
-                    <div className="bg-white rounded-2xl border border-gray-200 p-6 prose prose-sm max-w-none prose-headings:text-[#111827] prose-p:text-gray-600 prose-li:text-gray-600 prose-strong:text-[#111827]">
+                    <div className="bg-white rounded-[18px] border border-[#E5E7EB] p-8 prose-body prose prose-sm max-w-none prose-headings:text-[#111827] prose-headings:font-semibold prose-p:text-[#111827]/60 prose-p:leading-relaxed prose-li:text-[#111827]/60 prose-li:leading-relaxed prose-strong:text-[#111827]">
                       <ReactMarkdown>{brief.prd_sections[activeSection] || 'No content generated for this section.'}</ReactMarkdown>
                     </div>
                   </div>
