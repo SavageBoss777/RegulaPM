@@ -448,7 +448,7 @@ export default function BriefWorkspace() {
                     return (
                       <button key={key} onClick={() => setActiveSection(key)} className={`w-full text-left px-3 py-2 rounded-[12px] text-sm transition-colors flex items-center justify-between ${activeSection === key ? 'bg-[#3B4F6B]/[0.06] text-[#3B4F6B] font-medium' : 'text-[#111827]/60 hover:bg-[#E5E7EB]/30'}`}>
                         <span className="truncate">{label}</span>
-                        {st && <span className={`ml-1 w-1.5 h-1.5 rounded-full flex-shrink-0 ${st === 'approved' ? 'bg-[#3B4F6B]' : st === 'risk_identified' ? 'bg-[#111827]' : 'bg-[#E5E7EB]'}`}></span>}
+                        {st && <span className={`ml-1 w-1.5 h-1.5 rounded-full flex-shrink-0 ${st === 'approved' ? 'bg-green-500' : st === 'risk_identified' ? 'bg-red-500' : 'bg-amber-400'}`}></span>}
                       </button>
                     );
                   })}
