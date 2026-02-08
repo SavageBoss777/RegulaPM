@@ -372,10 +372,22 @@ export default function BriefWorkspace() {
       <div className="flex-1 overflow-auto bg-[#E5E7EB]/10">
         {!isGenerated && !generating ? (
           <div className="flex flex-col items-center justify-center h-full py-20">
-            <div className="w-16 h-16 rounded-2xl bg-[#3B4F6B]/5 flex items-center justify-center mb-4"><FileText className="w-8 h-8 text-[#3B4F6B]" /></div>
-            <h2 className="text-lg font-semibold text-[#111827] mb-2">Ready to generate</h2>
-            <p className="text-sm text-[#111827]/40 mb-6 max-w-md text-center">Click &quot;Generate&quot; to run the AI pipeline and create your PRD, stakeholder critiques, checklists, and dependency graph.</p>
-            <button onClick={handleGenerate} className="pill-button bg-[#3B4F6B] text-white hover:bg-[#2d3d52] flex items-center gap-2"><RefreshCw className="w-4 h-4" /> Generate Decision Brief</button>
+            {isError ? (
+              <>
+                <div className="w-16 h-16 rounded-2xl bg-red-50 flex items-center justify-center mb-4"><AlertTriangle className="w-8 h-8 text-red-500" /></div>
+                <h2 className="text-lg font-semibold text-[#111827] mb-2">Generation failed</h2>
+                <p className="text-sm text-[#111827]/50 mb-2 max-w-md text-center">{brief.error_message || 'An error occurred during generation.'}</p>
+                <p className="text-xs text-[#111827]/30 mb-6">You can retry — the system will attempt fallback AI models automatically.</p>
+                <button onClick={handleGenerate} className="pill-button bg-[#3B4F6B] text-white hover:bg-[#2d3d52] flex items-center gap-2"><RefreshCw className="w-4 h-4" /> Retry Generation</button>
+              </>
+            ) : (
+              <>
+                <div className="w-16 h-16 rounded-2xl bg-[#3B4F6B]/5 flex items-center justify-center mb-4"><FileText className="w-8 h-8 text-[#3B4F6B]" /></div>
+                <h2 className="text-lg font-semibold text-[#111827] mb-2">Ready to generate</h2>
+                <p className="text-sm text-[#111827]/40 mb-6 max-w-md text-center">Click &quot;Generate&quot; to run the AI pipeline and create your PRD, stakeholder critiques, checklists, and dependency graph.</p>
+                <button onClick={handleGenerate} className="pill-button bg-[#3B4F6B] text-white hover:bg-[#2d3d52] flex items-center gap-2"><RefreshCw className="w-4 h-4" /> Generate Decision Brief</button>
+              </>
+            )}
           </div>
         ) : generating ? (
           <div className="flex flex-col items-center justify-center h-full py-20">
