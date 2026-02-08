@@ -66,43 +66,73 @@ export default function LandingPage() {
 
           {/* Mock Product Card */}
           <div className="max-w-3xl mx-auto">
-            <div className="rounded-2xl border border-gray-200 bg-white shadow-xl shadow-gray-200/50 overflow-hidden">
-              <div className="bg-gray-50 px-6 py-3 border-b border-gray-200 flex items-center gap-2">
+            <div className="rounded-[18px] border border-[#E5E7EB] bg-white shadow-[0_8px_40px_rgba(17,24,39,0.08)] overflow-hidden">
+              <div className="bg-[#E5E7EB]/30 px-6 py-3 border-b border-[#E5E7EB] flex items-center gap-3">
                 <div className="flex gap-1.5">
-                  <div className="w-3 h-3 rounded-full bg-gray-300"></div>
-                  <div className="w-3 h-3 rounded-full bg-gray-300"></div>
-                  <div className="w-3 h-3 rounded-full bg-gray-300"></div>
+                  <div className="w-2.5 h-2.5 rounded-full bg-[#E5E7EB]"></div>
+                  <div className="w-2.5 h-2.5 rounded-full bg-[#E5E7EB]"></div>
+                  <div className="w-2.5 h-2.5 rounded-full bg-[#E5E7EB]"></div>
                 </div>
-                <span className="text-xs text-gray-400 ml-4">RegulaPM Nexus - New Decision Brief</span>
+                <div className="flex-1 flex justify-center">
+                  <div className="h-5 w-64 rounded-full bg-[#E5E7EB]/60 flex items-center justify-center">
+                    <span className="text-[10px] text-[#111827]/30 font-mono-ui">regulapm-nexus.app/dashboard/new</span>
+                  </div>
+                </div>
               </div>
-              <div className="p-8 text-left">
-                <h3 className="text-lg font-semibold text-[#111827] mb-6">New Decision Brief</h3>
-                <div className="space-y-4">
-                  <div>
-                    <label className="text-xs font-medium text-gray-500 uppercase tracking-wider">Title</label>
-                    <div className="mt-1 h-10 rounded-xl bg-gray-50 border border-gray-200 px-4 flex items-center text-sm text-gray-400">Instant Payouts for SMB Customers</div>
-                  </div>
-                  <div>
-                    <label className="text-xs font-medium text-gray-500 uppercase tracking-wider">Description</label>
-                    <div className="mt-1 h-20 rounded-xl bg-gray-50 border border-gray-200 px-4 pt-3 text-sm text-gray-400">Enable instant payouts for small and medium business...</div>
-                  </div>
-                  <div className="grid grid-cols-3 gap-3">
-                    <div>
-                      <label className="text-xs font-medium text-gray-500 uppercase tracking-wider">Industry</label>
-                      <div className="mt-1 h-10 rounded-xl bg-gray-50 border border-gray-200 px-4 flex items-center text-sm text-gray-400">Fintech</div>
+              <div className="flex">
+                {/* Mini sidebar */}
+                <div className="w-48 border-r border-[#E5E7EB] bg-[#E5E7EB]/10 p-3 hidden md:block">
+                  <div className="flex items-center gap-2 mb-4 px-2">
+                    <div className="w-5 h-5 rounded bg-[#3B4F6B] flex items-center justify-center">
+                      <Shield className="w-2.5 h-2.5 text-white" />
                     </div>
-                    <div>
-                      <label className="text-xs font-medium text-gray-500 uppercase tracking-wider">Geography</label>
-                      <div className="mt-1 h-10 rounded-xl bg-gray-50 border border-gray-200 px-4 flex items-center text-sm text-gray-400">US</div>
+                    <span className="text-[10px] font-semibold text-[#111827]">RegulaPM</span>
+                  </div>
+                  <div className="h-7 rounded-lg bg-[#3B4F6B] mb-3 flex items-center justify-center">
+                    <span className="text-[9px] text-white font-medium">+ New Brief</span>
+                  </div>
+                  <div className="space-y-1">
+                    <div className="h-6 rounded-lg bg-[#3B4F6B]/5 px-2 flex items-center">
+                      <span className="text-[9px] text-[#3B4F6B] font-medium">Instant Payouts...</span>
                     </div>
-                    <div>
-                      <label className="text-xs font-medium text-gray-500 uppercase tracking-wider">Risk</label>
-                      <div className="mt-1 h-10 rounded-xl bg-gray-50 border border-gray-200 px-4 flex items-center text-sm text-gray-400">Low</div>
+                    <div className="h-6 rounded-lg px-2 flex items-center">
+                      <span className="text-[9px] text-[#111827]/40">Patient Reminders...</span>
+                    </div>
+                    <div className="h-6 rounded-lg px-2 flex items-center">
+                      <span className="text-[9px] text-[#111827]/40">Enterprise SSO...</span>
                     </div>
                   </div>
-                  <div className="flex gap-2 pt-2">
-                    <div className="pill-button bg-[#3B4F6B] text-white text-sm flex items-center gap-2 cursor-default">
-                      <Zap className="w-3.5 h-3.5" /> Generate Decision Brief
+                </div>
+                {/* Form area */}
+                <div className="flex-1 p-8 text-left">
+                  <h3 className="text-base font-semibold text-[#111827] mb-5">New Decision Brief</h3>
+                  <div className="space-y-4">
+                    <div>
+                      <label className="text-[10px] font-medium text-[#111827]/40 uppercase tracking-wider">Title</label>
+                      <div className="mt-1.5 h-9 rounded-full bg-[#E5E7EB]/30 border border-[#E5E7EB] px-4 flex items-center text-xs text-[#111827]/40">Instant Payouts for SMB Customers</div>
+                    </div>
+                    <div>
+                      <label className="text-[10px] font-medium text-[#111827]/40 uppercase tracking-wider">Description</label>
+                      <div className="mt-1.5 h-16 rounded-2xl bg-[#E5E7EB]/30 border border-[#E5E7EB] px-4 pt-2.5 text-xs text-[#111827]/40 leading-relaxed">Enable instant payouts for small and medium business customers...</div>
+                    </div>
+                    <div className="grid grid-cols-3 gap-3">
+                      <div>
+                        <label className="text-[10px] font-medium text-[#111827]/40 uppercase tracking-wider">Industry</label>
+                        <div className="mt-1.5 h-9 rounded-full bg-[#E5E7EB]/30 border border-[#E5E7EB] px-4 flex items-center text-xs text-[#111827]/40">Fintech</div>
+                      </div>
+                      <div>
+                        <label className="text-[10px] font-medium text-[#111827]/40 uppercase tracking-wider">Geography</label>
+                        <div className="mt-1.5 h-9 rounded-full bg-[#E5E7EB]/30 border border-[#E5E7EB] px-4 flex items-center text-xs text-[#111827]/40">US</div>
+                      </div>
+                      <div>
+                        <label className="text-[10px] font-medium text-[#111827]/40 uppercase tracking-wider">Risk</label>
+                        <div className="mt-1.5 h-9 rounded-full bg-[#E5E7EB]/30 border border-[#E5E7EB] px-4 flex items-center text-xs text-[#111827]/40">Low</div>
+                      </div>
+                    </div>
+                    <div className="flex gap-2 pt-1">
+                      <div className="pill-button bg-[#3B4F6B] text-white text-xs flex items-center gap-1.5 cursor-default py-2 px-5">
+                        Generate Decision Brief
+                      </div>
                     </div>
                   </div>
                 </div>
