@@ -174,23 +174,26 @@ export default function LandingPage() {
       <section id="how-it-works" className="py-24 px-6">
         <div className="max-w-[1100px] mx-auto">
           <div className="text-center mb-16">
+            <p className="text-xs font-semibold text-[#3B4F6B] uppercase tracking-widest mb-3">Process</p>
             <h2 className="text-3xl font-bold text-[#111827] mb-4">How it works</h2>
-            <p className="text-gray-500 max-w-xl mx-auto">Four simple steps from product idea to auditable decision packet.</p>
+            <p className="text-[#111827]/50 max-w-xl mx-auto">Four steps from product idea to auditable decision packet.</p>
           </div>
-          <div className="grid md:grid-cols-4 gap-8">
+          <div className="grid md:grid-cols-4 gap-0 relative">
+            {/* Connecting line */}
+            <div className="hidden md:block absolute top-7 left-[12.5%] right-[12.5%] h-px bg-[#E5E7EB]"></div>
             {[
               { step: '01', title: 'Input', desc: 'Describe your product decision with industry context and risk parameters.', icon: FileText },
               { step: '02', title: 'Analyze', desc: 'AI extracts entities, builds dependency graphs, and identifies risks.', icon: GitBranch },
               { step: '03', title: 'Generate', desc: 'Get structured PRD sections, stakeholder critiques, and checklists.', icon: Zap },
               { step: '04', title: 'Export', desc: 'Download complete decision packets as Markdown, PDF, or JSON.', icon: Download },
             ].map((s, i) => (
-              <div key={i} className="text-center">
-                <div className="w-14 h-14 rounded-2xl bg-[#3B4F6B]/5 flex items-center justify-center mx-auto mb-4">
-                  <s.icon className="w-6 h-6 text-[#3B4F6B]" />
+              <div key={i} className="text-center px-4 relative">
+                <div className="w-14 h-14 rounded-2xl bg-white border border-[#E5E7EB] flex items-center justify-center mx-auto mb-4 relative z-10">
+                  <s.icon className="w-5 h-5 text-[#3B4F6B]" />
                 </div>
-                <div className="text-xs font-bold text-[#3B4F6B] mb-2">{s.step}</div>
+                <div className="font-mono-ui text-[10px] font-semibold text-[#3B4F6B] mb-2 tracking-wider">{s.step}</div>
                 <h3 className="font-semibold text-[#111827] mb-2">{s.title}</h3>
-                <p className="text-sm text-gray-500">{s.desc}</p>
+                <p className="text-sm text-[#111827]/50 leading-relaxed">{s.desc}</p>
               </div>
             ))}
           </div>
