@@ -37,17 +37,39 @@ function corsHeaders() {
 }
 
 // ========== GEMINI AI ==========
-async function callGemini(prompt) {
-  const response = await getGenAI().models.generateContent({
-    model: 'gemini-2.5-flash',
-    contents: prompt,
-    config: {
-      responseMimeType: 'application/json',
-      temperature: 0.7,
-    },
-  });
-  const text = response.text;
-  return JSON.parse(text);
+const MODELS = ['gemini-2.5-flash', 'gemini-2.0-flash', 'gemini-2.0-flash-lite'];
+
+async function callGemini(prompt, retries = 3) {
+  let lastError = null;
+  for (const model of MODELS) {
+    for (let attempt = 0; attempt < retries; attempt++) {
+      try {
+        const response = await getGenAI().models.generateContent({
+          model,
+          contents: prompt,
+          config: {
+            responseMimeType: 'application/json',
+            temperature: 0.7,
+          },
+        });
+        const text = response.text;
+        return JSON.parse(text);
+      } catch (error) {
+        lastError = error;
+        const errMsg = error?.message || String(error);
+        const is429 = errMsg.includes('429') || errMsg.includes('RESOURCE_EXHAUSTED') || errMsg.includes('quota');
+        if (is429 && attempt < retries - 1) {
+          const delay = Math.pow(2, attempt) * 1000 + Math.random() * 500;
+          console.log(`Rate limited on ${model}, retrying in ${Math.round(delay)}ms (attempt ${attempt + 1}/${retries})`);
+          await new Promise(r => setTimeout(r, delay));
+          continue;
+        }
+        if (is429) break; // Try next model
+        throw error; // Non-rate-limit error, throw immediately
+      }
+    }
+  }
+  throw lastError || new Error('All AI models exhausted. Please try again later.');
 }
 
 // ========== AI PIPELINE STAGES ==========
