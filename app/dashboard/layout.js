@@ -77,7 +77,7 @@ export default function DashboardLayout({ children }) {
       {/* Sidebar */}
       <aside className="w-72 bg-white border-r border-[#E5E7EB] flex flex-col">
         <div className="p-4 border-b border-[#E5E7EB]">
-          <div className="flex items-center gap-2 mb-4">
+          <div className="flex items-center gap-2 mb-4 cursor-pointer" onClick={() => router.push('/')}>
             <div className="w-8 h-8 rounded-lg bg-[#3B4F6B] flex items-center justify-center">
               <Shield className="w-4 h-4 text-white" />
             </div>
