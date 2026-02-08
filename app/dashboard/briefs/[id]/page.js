@@ -97,7 +97,7 @@ const RECOMMENDATION_LABELS = {
 function ReadinessBar({ readiness }) {
   if (!readiness) return null;
   const { score, tier, factors } = readiness;
-  const tierColors = { high: 'bg-[#3B4F6B]', medium: 'bg-[#3B4F6B]/60', low: 'bg-[#111827]/40' };
+  const tierColors = { high: 'bg-green-500', medium: 'bg-amber-400', low: 'bg-red-400' };
   return (
     <div className="px-6 py-3 border-b border-[#E5E7EB] bg-white">
       <div className="flex items-center gap-4">
@@ -111,7 +111,7 @@ function ReadinessBar({ readiness }) {
           </div>
         </div>
         <span className="text-xs font-semibold font-mono-ui text-[#111827]">{score}%</span>
-        <span className={`text-[10px] px-2 py-0.5 rounded-full font-medium capitalize ${tier === 'high' ? 'bg-[#3B4F6B]/10 text-[#3B4F6B]' : tier === 'medium' ? 'bg-[#E5E7EB] text-[#111827]/60' : 'bg-[#111827]/10 text-[#111827]/70'}`}>{tier} readiness</span>
+        <span className={`text-[10px] px-2 py-0.5 rounded-full font-medium capitalize ${tier === 'high' ? 'bg-green-50 text-green-700' : tier === 'medium' ? 'bg-amber-50 text-amber-700' : 'bg-red-50 text-red-700'}`}>{tier} readiness</span>
         {factors.length > 0 && (
           <div className="group relative">
             <Info className="w-3.5 h-3.5 text-[#111827]/30 cursor-help" />
