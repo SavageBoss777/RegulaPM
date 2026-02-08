@@ -489,8 +489,8 @@ export default function BriefWorkspace() {
                                   {item.checked && <Check className="w-3 h-3 text-white" />}
                                 </button>
                                 <div className="flex-1">
-                                  <p className={`text-sm ${item.checked ? 'text-gray-400 line-through' : 'text-gray-700'}`}>{item.item}</p>
-                                  {item.owner && <span className="text-[10px] text-gray-400">Owner: {item.owner}</span>}
+                                  <p className={`text-sm ${item.checked ? 'text-[#111827]/30 line-through' : 'text-[#111827]/70'}`}>{item.item}</p>
+                                  {item.owner && <span className="text-[10px] text-[#111827]/30 font-mono-ui">Owner: {item.owner}</span>}
                                 </div>
                               </div>
                             ))}
