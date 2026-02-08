@@ -205,45 +205,141 @@ async function runFullPipeline(briefId) {
   const brief = await db.collection('decision_briefs').findOne({ id: briefId });
   if (!brief) throw new Error('Brief not found');
 
-  await db.collection('decision_briefs').updateOne({ id: briefId }, { $set: { status: 'generating', generation_stage: 'entities', updated_at: new Date().toISOString() } });
+  const now = () => new Date().toISOString();
+  const event = (type, label) => ({ id: uuidv4(), type, label, timestamp: now() });
+
+  await db.collection('decision_briefs').updateOne({ id: briefId }, { $set: { status: 'generating', generation_stage: 'entities', updated_at: now() }, $push: { timeline_events: event('generation_started', 'AI pipeline initiated') } });
 
   // Stage 1
   const entities = await stage1ExtractEntities(brief);
-  await db.collection('decision_briefs').updateOne({ id: briefId }, { $set: { entities, generation_stage: 'graph' } });
+  await db.collection('decision_briefs').updateOne({ id: briefId }, { $set: { entities, generation_stage: 'graph' }, $push: { timeline_events: event('entities_extracted', 'Entities and risks extracted') } });
 
   // Stage 2
   const graph = stage2BuildGraph(entities, brief);
-  await db.collection('decision_briefs').updateOne({ id: briefId }, { $set: { graph, generation_stage: 'prd' } });
+  await db.collection('decision_briefs').updateOne({ id: briefId }, { $set: { graph, generation_stage: 'prd' }, $push: { timeline_events: event('graph_built', 'Dependency graph constructed') } });
 
   // Stage 3
   const prd_sections = await stage3GeneratePRD(entities, graph, brief);
-  await db.collection('decision_briefs').updateOne({ id: briefId }, { $set: { prd_sections, generation_stage: 'stakeholders' } });
+  const section_statuses = {};
+  Object.keys(prd_sections).forEach(k => { section_statuses[k] = 'needs_review'; });
+  await db.collection('decision_briefs').updateOne({ id: briefId }, { $set: { prd_sections, section_statuses, generation_stage: 'stakeholders' }, $push: { timeline_events: event('prd_generated', 'PRD sections generated') } });
 
-  // Stage 4
+  // Stage 4 - with risk levels
   const stakeholder_critiques = await stage4GenerateStakeholders(entities, graph, brief);
-  await db.collection('decision_briefs').updateOne({ id: briefId }, { $set: { stakeholder_critiques, generation_stage: 'checklist' } });
+  const stakeholder_risk_levels = computeStakeholderRiskLevels(stakeholder_critiques, entities);
+  await db.collection('decision_briefs').updateOne({ id: briefId }, { $set: { stakeholder_critiques, stakeholder_risk_levels, generation_stage: 'checklist' }, $push: { timeline_events: event('stakeholders_generated', 'Stakeholder critiques generated') } });
 
   // Stage 5
   const checklist = await stage5GenerateChecklist(entities, graph, brief);
-  await db.collection('decision_briefs').updateOne({ id: briefId }, { $set: { checklist, generation_stage: 'traceability' } });
+  await db.collection('decision_briefs').updateOne({ id: briefId }, { $set: { checklist, generation_stage: 'traceability' }, $push: { timeline_events: event('checklist_generated', 'Compliance checklist generated') } });
 
   // Stage 6
   const traceability = await stage6BuildTraceability(prd_sections, graph);
 
-  // Save revision
-  const revision = { id: uuidv4(), timestamp: new Date().toISOString(), type: 'full_generation', summary: 'Initial AI generation complete' };
+  // Stage 7 - Executive Summary
+  const executive_summary = await generateExecutiveSummary(brief, entities, stakeholder_critiques, checklist, stakeholder_risk_levels);
+
+  // Save revision + final timeline event
+  const revision = { id: uuidv4(), timestamp: now(), type: 'full_generation', summary: 'Initial AI generation complete' };
 
   await db.collection('decision_briefs').updateOne({ id: briefId }, {
     $set: {
       traceability,
+      executive_summary,
       status: 'complete',
       generation_stage: 'done',
-      updated_at: new Date().toISOString(),
+      updated_at: now(),
     },
-    $push: { revisions: revision }
+    $push: { revisions: revision, timeline_events: event('generation_complete', 'All stages complete — ready for review') }
   });
 
   return await db.collection('decision_briefs').findOne({ id: briefId });
+}
+
+// ========== RISK & SUMMARY HELPERS ==========
+function computeStakeholderRiskLevels(critiques, entities) {
+  const levels = {};
+  const highRiskKeywords = ['critical', 'severe', 'breach', 'violation', 'mandatory', 'immediate', 'block', 'prohibit'];
+  const medRiskKeywords = ['significant', 'required', 'must', 'ensure', 'risk', 'compliance'];
+  if (!critiques) return levels;
+  Object.entries(critiques).forEach(([name, data]) => {
+    const allText = [...(data.concerns || []), ...(data.required_controls || [])].join(' ').toLowerCase();
+    const concernCount = (data.concerns || []).length;
+    const controlCount = (data.required_controls || []).length;
+    const hasHigh = highRiskKeywords.some(kw => allText.includes(kw));
+    const hasMed = medRiskKeywords.some(kw => allText.includes(kw));
+    if (hasHigh || concernCount >= 5 || controlCount >= 5) levels[name] = 'high';
+    else if (hasMed || concernCount >= 3) levels[name] = 'medium';
+    else levels[name] = 'low';
+  });
+  return levels;
+}
+
+function computeReadinessScore(brief) {
+  if (!brief || brief.status !== 'complete') return { score: 0, tier: 'low', factors: [] };
+  const factors = [];
+  let score = 100;
+
+  // Checklist completion
+  if (brief.checklist) {
+    let total = 0, checked = 0;
+    Object.values(brief.checklist).forEach(items => { items.forEach(i => { total++; if (i.checked) checked++; }); });
+    const pct = total > 0 ? Math.round((checked / total) * 100) : 0;
+    if (pct < 50) { score -= 25; factors.push(`Checklist ${pct}% complete`); }
+    else if (pct < 100) { score -= 10; factors.push(`Checklist ${pct}% complete`); }
+  }
+
+  // Stakeholder risk levels
+  if (brief.stakeholder_risk_levels) {
+    const highCount = Object.values(brief.stakeholder_risk_levels).filter(v => v === 'high').length;
+    const medCount = Object.values(brief.stakeholder_risk_levels).filter(v => v === 'medium').length;
+    if (highCount > 0) { score -= highCount * 10; factors.push(`${highCount} high-risk stakeholder concern(s)`); }
+    if (medCount > 0) { score -= medCount * 5; factors.push(`${medCount} medium-risk stakeholder concern(s)`); }
+  }
+
+  // Section statuses
+  if (brief.section_statuses) {
+    const riskCount = Object.values(brief.section_statuses).filter(v => v === 'risk_identified').length;
+    const needsReview = Object.values(brief.section_statuses).filter(v => v === 'needs_review').length;
+    if (riskCount > 0) { score -= riskCount * 8; factors.push(`${riskCount} section(s) with identified risk`); }
+    if (needsReview > 0) { score -= needsReview * 3; factors.push(`${needsReview} section(s) pending review`); }
+  }
+
+  // Unresolved assumptions
+  if (brief.assumptions?.length > 0) {
+    const lowConf = brief.assumptions.filter(a => a.confidence === 'low').length;
+    if (lowConf > 0) { score -= lowConf * 5; factors.push(`${lowConf} low-confidence assumption(s)`); }
+  }
+
+  score = Math.max(0, Math.min(100, score));
+  const tier = score >= 75 ? 'high' : score >= 45 ? 'medium' : 'low';
+  return { score, tier, factors };
+}
+
+async function generateExecutiveSummary(brief, entities, stakeholders, checklist, riskLevels) {
+  const highRiskStakeholders = Object.entries(riskLevels || {}).filter(([, v]) => v === 'high').map(([k]) => k);
+  const prompt = `Generate a concise executive decision summary for this product decision.
+
+Title: ${brief.title}
+Industry: ${brief.industry_context}
+Geography: ${brief.geography}
+Risk Tolerance: ${brief.risk_tolerance}
+Feature Summary: ${entities?.feature_summary || 'N/A'}
+Key Risks: ${(entities?.risks || []).map(r => r.name).join(', ')}
+High-Risk Stakeholders: ${highRiskStakeholders.join(', ') || 'None'}
+
+Return JSON:
+{
+  "overview": "2-3 sentence executive overview of the decision",
+  "top_risks": ["risk 1", "risk 2", "risk 3"],
+  "required_approvals": ["approval 1", "approval 2"],
+  "recommendation": "go_with_conditions",
+  "recommendation_rationale": "1-2 sentence explanation of the recommendation",
+  "key_dependencies": ["dependency 1", "dependency 2"]
+}
+
+recommendation must be one of: "go", "go_with_conditions", "no_go", "needs_further_review"`;
+  return await callGemini(prompt);
 }
 
 // ========== AUTH HANDLERS ==========
