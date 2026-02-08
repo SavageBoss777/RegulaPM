@@ -600,32 +600,32 @@ export default function BriefWorkspace() {
                 <div className="max-w-3xl mx-auto">
                   <h2 className="text-xl font-bold text-[#111827] mb-6">Export Decision Brief</h2>
                   <div className="grid md:grid-cols-3 gap-4">
-                    <button onClick={handleCopyMarkdown} className="bg-white rounded-2xl border border-gray-200 p-6 text-left hover:border-gray-300 hover:shadow-sm transition-all">
-                      <div className="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center mb-4">
-                        {copied ? <Check className="w-5 h-5 text-green-500" /> : <Copy className="w-5 h-5 text-blue-500" />}
+                    <button onClick={handleCopyMarkdown} className="bg-white rounded-[18px] border border-[#E5E7EB] p-6 text-left hover:shadow-[0_4px_20px_rgba(17,24,39,0.04)] transition-all">
+                      <div className="w-10 h-10 rounded-xl bg-[#3B4F6B]/[0.06] flex items-center justify-center mb-4">
+                        {copied ? <Check className="w-5 h-5 text-[#3B4F6B]" /> : <Copy className="w-5 h-5 text-[#3B4F6B]" />}
                       </div>
                       <h3 className="font-semibold text-[#111827] mb-1">{copied ? 'Copied!' : 'Copy Markdown'}</h3>
-                      <p className="text-xs text-gray-500">Copy the full brief as formatted Markdown text</p>
+                      <p className="text-xs text-[#111827]/40">Copy the full brief as formatted Markdown text</p>
                     </button>
-                    <button onClick={handleDownloadMarkdown} className="bg-white rounded-2xl border border-gray-200 p-6 text-left hover:border-gray-300 hover:shadow-sm transition-all">
-                      <div className="w-10 h-10 rounded-xl bg-green-50 flex items-center justify-center mb-4">
-                        <Download className="w-5 h-5 text-green-500" />
+                    <button onClick={handleDownloadMarkdown} className="bg-white rounded-[18px] border border-[#E5E7EB] p-6 text-left hover:shadow-[0_4px_20px_rgba(17,24,39,0.04)] transition-all">
+                      <div className="w-10 h-10 rounded-xl bg-[#3B4F6B]/[0.06] flex items-center justify-center mb-4">
+                        <Download className="w-5 h-5 text-[#3B4F6B]" />
                       </div>
                       <h3 className="font-semibold text-[#111827] mb-1">Download Markdown</h3>
-                      <p className="text-xs text-gray-500">Download as a .md file for docs or repos</p>
+                      <p className="text-xs text-[#111827]/40">Download as a .md file for docs or repos</p>
                     </button>
-                    <button onClick={handleDownloadJSON} className="bg-white rounded-2xl border border-gray-200 p-6 text-left hover:border-gray-300 hover:shadow-sm transition-all">
-                      <div className="w-10 h-10 rounded-xl bg-purple-50 flex items-center justify-center mb-4">
-                        <FileText className="w-5 h-5 text-purple-500" />
+                    <button onClick={handleDownloadJSON} className="bg-white rounded-[18px] border border-[#E5E7EB] p-6 text-left hover:shadow-[0_4px_20px_rgba(17,24,39,0.04)] transition-all">
+                      <div className="w-10 h-10 rounded-xl bg-[#3B4F6B]/[0.06] flex items-center justify-center mb-4">
+                        <FileText className="w-5 h-5 text-[#3B4F6B]" />
                       </div>
                       <h3 className="font-semibold text-[#111827] mb-1">Download JSON</h3>
-                      <p className="text-xs text-gray-500">Full structured data export for integrations</p>
+                      <p className="text-xs text-[#111827]/40">Full structured data export for integrations</p>
                     </button>
                   </div>
-                  <div className="mt-8 bg-white rounded-2xl border border-gray-200 p-6">
+                  <div className="mt-8 bg-white rounded-[18px] border border-[#E5E7EB] p-6">
                     <h3 className="font-semibold text-[#111827] mb-4">Export Preview</h3>
-                    <div className="bg-gray-50 rounded-xl p-4 max-h-96 overflow-auto">
-                      <pre className="text-xs text-gray-600 whitespace-pre-wrap font-mono">{generateMarkdown().slice(0, 2000)}{generateMarkdown().length > 2000 ? '\n\n... (truncated)' : ''}</pre>
+                    <div className="bg-[#E5E7EB]/20 rounded-[14px] p-5 max-h-96 overflow-auto">
+                      <pre className="text-xs text-[#111827]/50 whitespace-pre-wrap font-mono-ui leading-relaxed">{generateMarkdown().slice(0, 2000)}{generateMarkdown().length > 2000 ? '\n\n... (truncated)' : ''}</pre>
                     </div>
                   </div>
                 </div>
