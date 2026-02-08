@@ -344,36 +344,50 @@ recommendation must be one of: "go", "go_with_conditions", "no_go", "needs_furth
 
 // ========== AUTH HANDLERS ==========
 async function handleSignup(request) {
-  const { email, password, name } = await request.json();
-  if (!email || !password) return NextResponse.json({ error: 'Email and password required' }, { status: 400 });
-  const db = await connectToDatabase();
-  const exists = await db.collection('users').findOne({ email });
-  if (exists) return NextResponse.json({ error: 'Email already registered' }, { status: 409 });
-  const hashedPw = bcrypt.hashSync(password, 10);
-  const user = { id: uuidv4(), email, password: hashedPw, name: name || email.split('@')[0], created_at: new Date().toISOString() };
-  await db.collection('users').insertOne(user);
-  const token = uuidv4();
-  await db.collection('sessions').insertOne({ id: uuidv4(), user_id: user.id, token, created_at: new Date().toISOString() });
-  const { password: _, ...safeUser } = user;
-  const response = NextResponse.json({ user: safeUser });
-  response.cookies.set('session_token', token, { httpOnly: true, sameSite: 'lax', maxAge: 60 * 60 * 24 * 7, path: '/' });
-  return response;
+  try {
+    const body = await request.json().catch(() => null);
+    if (!body) return NextResponse.json({ error: 'Invalid request body' }, { status: 400 });
+    const { email, password, name } = body;
+    if (!email || !password) return NextResponse.json({ error: 'Email and password required' }, { status: 400 });
+    const db = await connectToDatabase();
+    const exists = await db.collection('users').findOne({ email });
+    if (exists) return NextResponse.json({ error: 'Email already registered' }, { status: 409 });
+    const hashedPw = bcrypt.hashSync(password, 10);
+    const user = { id: uuidv4(), email, password: hashedPw, name: name || email.split('@')[0], created_at: new Date().toISOString() };
+    await db.collection('users').insertOne(user);
+    const token = uuidv4();
+    await db.collection('sessions').insertOne({ id: uuidv4(), user_id: user.id, token, created_at: new Date().toISOString() });
+    const safeUser = { id: user.id, email: user.email, name: user.name, created_at: user.created_at };
+    const response = NextResponse.json({ user: safeUser });
+    response.cookies.set('session_token', token, { httpOnly: true, sameSite: 'lax', maxAge: 60 * 60 * 24 * 7, path: '/' });
+    return response;
+  } catch (error) {
+    console.error('Signup error:', error);
+    return NextResponse.json({ error: 'Signup failed. Please try again.' }, { status: 500 });
+  }
 }
 
 async function handleLogin(request) {
-  const { email, password } = await request.json();
-  if (!email || !password) return NextResponse.json({ error: 'Email and password required' }, { status: 400 });
-  const db = await connectToDatabase();
-  const user = await db.collection('users').findOne({ email });
-  if (!user || !bcrypt.compareSync(password, user.password)) {
-    return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 });
+  try {
+    const body = await request.json().catch(() => null);
+    if (!body) return NextResponse.json({ error: 'Invalid request body' }, { status: 400 });
+    const { email, password } = body;
+    if (!email || !password) return NextResponse.json({ error: 'Email and password required' }, { status: 400 });
+    const db = await connectToDatabase();
+    const user = await db.collection('users').findOne({ email });
+    if (!user || !bcrypt.compareSync(password, user.password)) {
+      return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 });
+    }
+    const token = uuidv4();
+    await db.collection('sessions').insertOne({ id: uuidv4(), user_id: user.id, token, created_at: new Date().toISOString() });
+    const safeUser = { id: user.id, email: user.email, name: user.name, created_at: user.created_at };
+    const response = NextResponse.json({ user: safeUser });
+    response.cookies.set('session_token', token, { httpOnly: true, sameSite: 'lax', maxAge: 60 * 60 * 24 * 7, path: '/' });
+    return response;
+  } catch (error) {
+    console.error('Login error:', error);
+    return NextResponse.json({ error: 'Login failed. Please try again.' }, { status: 500 });
   }
-  const token = uuidv4();
-  await db.collection('sessions').insertOne({ id: uuidv4(), user_id: user.id, token, created_at: new Date().toISOString() });
-  const { password: _, ...safeUser } = user;
-  const response = NextResponse.json({ user: safeUser });
-  response.cookies.set('session_token', token, { httpOnly: true, sameSite: 'lax', maxAge: 60 * 60 * 24 * 7, path: '/' });
-  return response;
 }
 
 async function handleLogout(request) {
