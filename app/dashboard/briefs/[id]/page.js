@@ -328,6 +328,7 @@ export default function BriefWorkspace() {
   if (!brief) return <div className="flex flex-col items-center justify-center h-full"><FileText className="w-12 h-12 text-[#E5E7EB] mb-4" /><h2 className="text-lg font-semibold text-[#111827] mb-2">Brief not found</h2><button onClick={() => router.push('/dashboard')} className="text-sm text-[#3B4F6B] hover:underline">Back to Dashboard</button></div>;
 
   const isGenerated = brief.status === 'complete' && brief.prd_sections;
+  const isError = brief.status === 'error';
   const readiness = brief.readiness;
   const execSummary = brief.executive_summary;
 
