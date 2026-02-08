@@ -575,7 +575,7 @@ export default function BriefWorkspace() {
 
             {/* ===== CHECKLIST TAB ===== */}
             {activeTab === 'checklist' && brief.checklist && (
-              <div className="p-8 overflow-auto">
+              <div className="p-8 overflow-auto tab-content">
                 <div className="max-w-3xl mx-auto">
                   <h2 className="text-xl font-bold text-[#111827] mb-6">Compliance & Launch Checklist</h2>
                   <div className="space-y-6">
