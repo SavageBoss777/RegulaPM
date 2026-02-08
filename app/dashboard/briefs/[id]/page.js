@@ -506,7 +506,7 @@ export default function BriefWorkspace() {
             {/* Graph Tab */}
             {activeTab === 'graph' && brief.graph && (
               <div className="flex flex-col h-full">
-                <div className="px-6 py-3 bg-white border-b border-gray-200 flex items-center justify-between">
+                <div className="px-6 py-3 bg-white border-b border-[#E5E7EB] flex items-center justify-between">
                   <div className="flex gap-2">
                     {[
                       { id: 'all', label: 'Overview' },
@@ -515,7 +515,7 @@ export default function BriefWorkspace() {
                       { id: 'stakeholder', label: 'Stakeholders' },
                       { id: 'metric', label: 'Metrics' },
                     ].map(f => (
-                      <button key={f.id} onClick={() => setGraphFilter(f.id)} className={`text-xs px-3 py-1.5 rounded-full transition-colors ${graphFilter === f.id ? 'bg-[#3B4F6B] text-white' : 'text-gray-500 hover:bg-gray-100'}`}>
+                      <button key={f.id} onClick={() => setGraphFilter(f.id)} className={`text-xs px-3 py-1.5 rounded-full transition-colors ${graphFilter === f.id ? 'bg-[#3B4F6B] text-white' : 'text-[#111827]/40 hover:bg-[#E5E7EB]/50'}`}>
                         {f.label}
                       </button>
                     ))}
