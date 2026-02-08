@@ -400,7 +400,7 @@ export default function BriefWorkspace() {
           <>
             {/* ===== SUMMARY TAB ===== */}
             {activeTab === 'summary' && (
-              <div className="p-8 overflow-auto">
+              <div className="p-8 overflow-auto tab-content">
                 <div className="max-w-3xl mx-auto space-y-6">
                   {/* Executive Summary */}
                   <div className="bg-white rounded-[18px] border border-[#E5E7EB] p-6">
