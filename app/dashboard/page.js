@@ -98,8 +98,8 @@ export default function DashboardPage() {
                     <h3 className="font-semibold text-[#111827]">{b.title}</h3>
                     <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${statusColors[b.status] || 'bg-[#E5E7EB] text-[#111827]/50'}`}>{b.status}</span>
                   </div>
-                  <div className="flex items-center gap-4 text-xs text-[#111827]/30 font-mono-ui">
-                    <span>{b.industry_context}</span>
+                  <div className="flex items-center gap-2 text-xs text-[#111827]/30 font-mono-ui">
+                    <span className={`px-2 py-0.5 rounded-full text-[10px] font-medium ${industryColors[b.industry_context] || 'bg-[#E5E7EB] text-[#111827]/50'}`}>{b.industry_context}</span>
                     <span>{b.geography}</span>
                     <span>{b.launch_type}</span>
                     <span>{new Date(b.updated_at).toLocaleDateString()}</span>
