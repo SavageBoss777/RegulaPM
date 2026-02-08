@@ -513,9 +513,14 @@ async function handleGenerate(request, briefId) {
     const result = await runFullPipeline(briefId);
     return NextResponse.json({ brief: result });
   } catch (error) {
+    const errMsg = error?.message || String(error);
+    const isQuota = errMsg.includes('429') || errMsg.includes('quota') || errMsg.includes('RESOURCE_EXHAUSTED');
+    const friendlyMsg = isQuota
+      ? 'AI rate limit reached. The Gemini API free tier has a daily request limit. Please wait a few minutes and try again, or the limit will reset tomorrow.'
+      : `Generation failed: ${errMsg.slice(0, 200)}`;
     const db = await connectToDatabase();
-    await db.collection('decision_briefs').updateOne({ id: briefId }, { $set: { status: 'error', error_message: error.message, updated_at: new Date().toISOString() } });
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    await db.collection('decision_briefs').updateOne({ id: briefId }, { $set: { status: 'error', error_message: friendlyMsg, updated_at: new Date().toISOString() } });
+    return NextResponse.json({ error: friendlyMsg }, { status: isQuota ? 429 : 500 });
   }
 }
 
