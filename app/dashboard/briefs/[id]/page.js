@@ -358,7 +358,7 @@ export default function BriefWorkspace() {
               <FileText className="w-8 h-8 text-[#3B4F6B]" />
             </div>
             <h2 className="text-lg font-semibold text-[#111827] mb-2">Ready to generate</h2>
-            <p className="text-sm text-gray-500 mb-6 max-w-md text-center">
+            <p className="text-sm text-[#111827]/40 mb-6 max-w-md text-center">
               Click &quot;Generate&quot; to run the AI pipeline and create your PRD, stakeholder critiques, checklists, and dependency graph.
             </p>
             <button onClick={handleGenerate} className="pill-button bg-[#3B4F6B] text-white hover:bg-[#2d3d52] flex items-center gap-2">
