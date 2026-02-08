@@ -421,7 +421,7 @@ export default function BriefWorkspace() {
                               </div>
                               <h3 className="font-semibold text-[#111827]">{name}</h3>
                             </div>
-                            <button onClick={() => handleRegenerateStakeholder(name)} disabled={regenerating === name} className="text-xs px-3 py-1.5 rounded-full border border-gray-200 text-gray-500 hover:bg-gray-50 flex items-center gap-1 disabled:opacity-50">
+                            <button onClick={() => handleRegenerateStakeholder(name)} disabled={regenerating === name} className="text-xs px-3 py-1.5 rounded-full border border-[#E5E7EB] text-[#111827]/40 hover:bg-[#E5E7EB]/30 flex items-center gap-1 disabled:opacity-50 transition-colors">
                               {regenerating === name ? <Loader2 className="w-3 h-3 animate-spin" /> : <RefreshCw className="w-3 h-3" />}
                               Regenerate
                             </button>
