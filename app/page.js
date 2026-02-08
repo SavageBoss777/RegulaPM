@@ -65,7 +65,7 @@ export default function LandingPage() {
           </div>
 
           {/* Mock Product Card */}
-          <div className="max-w-3xl mx-auto">
+          <div className="animate-fade-in-up max-w-3xl mx-auto" style={{animationDelay: '400ms'}}>
             <div className="rounded-[18px] border border-[#E5E7EB] bg-white shadow-[0_8px_40px_rgba(17,24,39,0.08)] overflow-hidden">
               <div className="bg-[#E5E7EB]/30 px-6 py-3 border-b border-[#E5E7EB] flex items-center gap-3">
                 <div className="flex gap-1.5">
