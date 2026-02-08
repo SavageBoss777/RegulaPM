@@ -46,7 +46,7 @@ export default function LandingPage() {
       {/* Hero */}
       <section className="pt-32 pb-20 px-6">
         <div className="max-w-[1100px] mx-auto text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#3B4F6B]/5 text-[#3B4F6B] text-sm font-medium mb-6">
+          <div className="animate-fade-in-up inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#3B4F6B]/5 text-[#3B4F6B] text-sm font-medium mb-6">
             <Zap className="w-3.5 h-3.5" /> AI-Powered Product Governance
           </div>
           <h1 className="text-5xl md:text-6xl font-extrabold text-[#111827] leading-tight tracking-tight mb-6">
