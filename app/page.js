@@ -143,13 +143,14 @@ export default function LandingPage() {
       </section>
 
       {/* Features */}
-      <section id="features" className="py-24 px-6 bg-gray-50/50">
+      <section id="features" className="py-24 px-6 bg-[#E5E7EB]/20">
         <div className="max-w-[1100px] mx-auto">
           <div className="text-center mb-16">
+            <p className="text-xs font-semibold text-[#3B4F6B] uppercase tracking-widest mb-3">Capabilities</p>
             <h2 className="text-3xl font-bold text-[#111827] mb-4">Everything you need for governed decisions</h2>
-            <p className="text-gray-500 max-w-xl mx-auto">From initial input to exportable compliance packets, RegulaPM Nexus handles the full lifecycle.</p>
+            <p className="text-[#111827]/50 max-w-xl mx-auto">From initial input to exportable compliance packets, RegulaPM Nexus handles the full lifecycle.</p>
           </div>
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-3 gap-5">
             {[
               { icon: FileText, title: 'Decision Briefs', desc: 'Structured PRD generation with AI-powered sections, compliance requirements, and risk analysis.' },
               { icon: Users, title: 'Stakeholder Critiques', desc: 'Auto-generated critique packs for Security, Legal, Compliance, Finance, Engineering, and Support.' },
@@ -158,12 +159,12 @@ export default function LandingPage() {
               { icon: Download, title: 'Export Packets', desc: 'Export complete decision briefs as Markdown, JSON, or formatted PDF with appendices.' },
               { icon: BarChart3, title: 'Traceability', desc: 'Full traceability from requirements to graph nodes with rationale and audit trails.' },
             ].map((f, i) => (
-              <div key={i} className="bg-white rounded-2xl p-6 border border-gray-100 hover:border-gray-200 hover:shadow-md transition-all duration-300">
-                <div className="w-10 h-10 rounded-xl bg-[#3B4F6B]/5 flex items-center justify-center mb-4">
+              <div key={i} className="bg-white rounded-[18px] p-7 border border-[#E5E7EB] hover:shadow-[0_4px_20px_rgba(17,24,39,0.04)] transition-all duration-300">
+                <div className="w-10 h-10 rounded-xl bg-[#3B4F6B]/[0.06] flex items-center justify-center mb-5">
                   <f.icon className="w-5 h-5 text-[#3B4F6B]" />
                 </div>
                 <h3 className="font-semibold text-[#111827] mb-2">{f.title}</h3>
-                <p className="text-sm text-gray-500 leading-relaxed">{f.desc}</p>
+                <p className="text-sm text-[#111827]/50 leading-relaxed">{f.desc}</p>
               </div>
             ))}
           </div>
