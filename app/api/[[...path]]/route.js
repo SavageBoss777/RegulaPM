@@ -330,6 +330,12 @@ async function handleCreateBrief(request) {
     checklist: null,
     traceability: null,
     revisions: [],
+    timeline_events: [{ id: uuidv4(), type: 'created', label: 'Decision brief created', timestamp: new Date().toISOString() }],
+    section_statuses: {},
+    assumptions: [],
+    executive_summary: null,
+    stakeholder_risk_levels: {},
+    regeneration_diffs: {},
     created_at: new Date().toISOString(),
     updated_at: new Date().toISOString(),
   };
