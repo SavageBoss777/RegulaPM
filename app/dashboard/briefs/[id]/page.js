@@ -426,36 +426,36 @@ export default function BriefWorkspace() {
                               Regenerate
                             </button>
                           </div>
-                          <div className="grid md:grid-cols-2 gap-4">
+                          <div className="grid md:grid-cols-2 gap-5">
                             {data.concerns?.length > 0 && (
-                              <div>
-                                <h4 className="text-xs font-bold text-red-500 uppercase tracking-wider mb-2 flex items-center gap-1"><AlertTriangle className="w-3 h-3" /> Concerns</h4>
-                                <ul className="space-y-1.5">
-                                  {data.concerns.map((c, i) => <li key={i} className="text-sm text-gray-600 flex items-start gap-2"><span className="w-1 h-1 rounded-full bg-red-400 mt-2 flex-shrink-0"></span>{c}</li>)}
+                              <div className="bg-[#E5E7EB]/20 rounded-[14px] p-4">
+                                <h4 className="text-[10px] font-semibold text-[#111827] uppercase tracking-wider mb-3 flex items-center gap-1.5"><AlertTriangle className="w-3 h-3 text-[#3B4F6B]" /> Concerns</h4>
+                                <ul className="space-y-2">
+                                  {data.concerns.map((c, i) => <li key={i} className="text-sm text-[#111827]/60 flex items-start gap-2 leading-relaxed"><span className="w-1 h-1 rounded-full bg-[#3B4F6B]/40 mt-2 flex-shrink-0"></span>{c}</li>)}
                                 </ul>
                               </div>
                             )}
                             {data.required_controls?.length > 0 && (
-                              <div>
-                                <h4 className="text-xs font-bold text-blue-500 uppercase tracking-wider mb-2 flex items-center gap-1"><Shield className="w-3 h-3" /> Required Controls</h4>
-                                <ul className="space-y-1.5">
-                                  {data.required_controls.map((c, i) => <li key={i} className="text-sm text-gray-600 flex items-start gap-2"><span className="w-1 h-1 rounded-full bg-blue-400 mt-2 flex-shrink-0"></span>{c}</li>)}
+                              <div className="bg-[#E5E7EB]/20 rounded-[14px] p-4">
+                                <h4 className="text-[10px] font-semibold text-[#111827] uppercase tracking-wider mb-3 flex items-center gap-1.5"><Shield className="w-3 h-3 text-[#3B4F6B]" /> Required Controls</h4>
+                                <ul className="space-y-2">
+                                  {data.required_controls.map((c, i) => <li key={i} className="text-sm text-[#111827]/60 flex items-start gap-2 leading-relaxed"><span className="w-1 h-1 rounded-full bg-[#3B4F6B]/40 mt-2 flex-shrink-0"></span>{c}</li>)}
                                 </ul>
                               </div>
                             )}
                             {data.required_approvals?.length > 0 && (
-                              <div>
-                                <h4 className="text-xs font-bold text-amber-500 uppercase tracking-wider mb-2 flex items-center gap-1"><Check className="w-3 h-3" /> Required Approvals</h4>
-                                <ul className="space-y-1.5">
-                                  {data.required_approvals.map((c, i) => <li key={i} className="text-sm text-gray-600 flex items-start gap-2"><span className="w-1 h-1 rounded-full bg-amber-400 mt-2 flex-shrink-0"></span>{c}</li>)}
+                              <div className="bg-[#E5E7EB]/20 rounded-[14px] p-4">
+                                <h4 className="text-[10px] font-semibold text-[#111827] uppercase tracking-wider mb-3 flex items-center gap-1.5"><Check className="w-3 h-3 text-[#3B4F6B]" /> Required Approvals</h4>
+                                <ul className="space-y-2">
+                                  {data.required_approvals.map((c, i) => <li key={i} className="text-sm text-[#111827]/60 flex items-start gap-2 leading-relaxed"><span className="w-1 h-1 rounded-full bg-[#3B4F6B]/40 mt-2 flex-shrink-0"></span>{c}</li>)}
                                 </ul>
                               </div>
                             )}
                             {data.questions?.length > 0 && (
-                              <div>
-                                <h4 className="text-xs font-bold text-purple-500 uppercase tracking-wider mb-2 flex items-center gap-1"><Eye className="w-3 h-3" /> Questions</h4>
-                                <ul className="space-y-1.5">
-                                  {data.questions.map((q, i) => <li key={i} className="text-sm text-gray-600 flex items-start gap-2"><span className="w-1 h-1 rounded-full bg-purple-400 mt-2 flex-shrink-0"></span>{q}</li>)}
+                              <div className="bg-[#E5E7EB]/20 rounded-[14px] p-4">
+                                <h4 className="text-[10px] font-semibold text-[#111827] uppercase tracking-wider mb-3 flex items-center gap-1.5"><Eye className="w-3 h-3 text-[#3B4F6B]" /> Questions</h4>
+                                <ul className="space-y-2">
+                                  {data.questions.map((q, i) => <li key={i} className="text-sm text-[#111827]/60 flex items-start gap-2 leading-relaxed"><span className="w-1 h-1 rounded-full bg-[#3B4F6B]/40 mt-2 flex-shrink-0"></span>{q}</li>)}
                                 </ul>
                               </div>
                             )}
