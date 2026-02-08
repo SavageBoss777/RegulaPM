@@ -181,19 +181,19 @@ export default function LandingPage() {
               <div className="text-4xl font-bold text-[#111827] mb-6">$0<span className="text-sm font-normal text-gray-400">/mo</span></div>
               <ul className="space-y-3 mb-8">
                 {['5 decision briefs', 'AI generation', 'Markdown export', 'Dependency graph'].map((f, i) => (
-                  <li key={i} className="flex items-center gap-2 text-sm text-gray-600"><CheckCircle2 className="w-4 h-4 text-green-500" />{f}</li>
+                  <li key={i} className="flex items-center gap-2 text-sm text-[#111827]/70"><CheckCircle2 className="w-4 h-4 text-[#3B4F6B]" />{f}</li>
                 ))}
               </ul>
-              <button onClick={() => router.push('/signup')} className="pill-button w-full border border-gray-200 text-gray-700 hover:bg-gray-50">Get Started</button>
+              <button onClick={() => router.push('/signup')} className="pill-button w-full border border-[#E5E7EB] text-[#111827] hover:bg-[#E5E7EB]/30">Get Started</button>
             </div>
             <div className="bg-white rounded-2xl p-8 border-2 border-[#3B4F6B] relative">
               <div className="absolute -top-3 right-6 bg-[#3B4F6B] text-white text-xs px-3 py-1 rounded-full font-medium">Popular</div>
               <h3 className="font-semibold text-[#111827] mb-1">Team</h3>
-              <p className="text-sm text-gray-500 mb-4">For growing teams</p>
-              <div className="text-4xl font-bold text-[#111827] mb-6">$29<span className="text-sm font-normal text-gray-400">/mo</span></div>
+              <p className="text-sm text-[#111827]/50 mb-4">For growing teams</p>
+              <div className="text-4xl font-bold text-[#111827] mb-6">$29<span className="text-sm font-normal text-[#111827]/40">/mo</span></div>
               <ul className="space-y-3 mb-8">
                 {['Unlimited briefs', 'Team collaboration', 'PDF export', 'Priority AI', 'Custom templates'].map((f, i) => (
-                  <li key={i} className="flex items-center gap-2 text-sm text-gray-600"><CheckCircle2 className="w-4 h-4 text-green-500" />{f}</li>
+                  <li key={i} className="flex items-center gap-2 text-sm text-[#111827]/70"><CheckCircle2 className="w-4 h-4 text-[#3B4F6B]" />{f}</li>
                 ))}
               </ul>
               <button onClick={() => router.push('/signup')} className="pill-button w-full bg-[#3B4F6B] text-white hover:bg-[#2d3d52]">Start Free Trial</button>
