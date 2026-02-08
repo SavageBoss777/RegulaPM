@@ -31,10 +31,10 @@ export default function DashboardPage() {
   }
 
   const statusColors = {
-    draft: 'bg-gray-100 text-gray-600',
-    generating: 'bg-amber-100 text-amber-700',
-    complete: 'bg-green-100 text-green-700',
-    error: 'bg-red-100 text-red-600',
+    draft: 'bg-[#E5E7EB] text-[#111827]/60',
+    generating: 'bg-[#3B4F6B]/10 text-[#3B4F6B]',
+    complete: 'bg-[#3B4F6B]/10 text-[#3B4F6B]',
+    error: 'bg-[#111827]/10 text-[#111827]/70',
   };
 
   if (loading) return (
