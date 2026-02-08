@@ -309,7 +309,7 @@ export default function BriefWorkspace() {
   return (
     <div className="flex flex-col h-full">
       {/* Top Bar */}
-      <div className="px-6 py-3 border-b border-gray-200 bg-white flex items-center justify-between">
+      <div className="px-6 py-3 border-b border-[#E5E7EB] bg-white flex items-center justify-between">
         <div className="flex items-center gap-3">
           <button onClick={() => router.push('/dashboard')} className="p-1.5 rounded-lg hover:bg-gray-100 text-gray-400">
             <ArrowLeft className="w-4 h-4" />
