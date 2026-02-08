@@ -103,21 +103,21 @@ export default function DashboardLayout({ children }) {
         <div className="flex-1 overflow-auto px-2">
           {filteredBriefs.length === 0 ? (
             <div className="text-center py-8 px-4">
-              <FileText className="w-8 h-8 text-gray-300 mx-auto mb-2" />
-              <p className="text-sm text-gray-400 mb-3">No briefs yet</p>
+              <FileText className="w-8 h-8 text-[#E5E7EB] mx-auto mb-2" />
+              <p className="text-sm text-[#111827]/30 mb-3">No briefs yet</p>
               <button onClick={handleSeed} className="text-xs text-[#3B4F6B] hover:underline">Seed demo briefs</button>
             </div>
           ) : (
-            <div className="space-y-1">
+            <div className="space-y-0.5">
               {filteredBriefs.map(b => (
-                <button key={b.id} onClick={() => router.push(`/dashboard/briefs/${b.id}`)} className={`w-full text-left px-3 py-2.5 rounded-xl text-sm transition-colors group ${pathname.includes(b.id) ? 'bg-[#3B4F6B]/5 text-[#3B4F6B]' : 'hover:bg-gray-50 text-gray-700'}`}>
+                <button key={b.id} onClick={() => router.push(`/dashboard/briefs/${b.id}`)} className={`w-full text-left px-3 py-2.5 rounded-[12px] text-sm transition-colors group ${pathname.includes(b.id) ? 'bg-[#3B4F6B]/[0.06] text-[#3B4F6B]' : 'hover:bg-[#E5E7EB]/30 text-[#111827]/70'}`}>
                   <div className="flex items-center justify-between">
                     <span className="font-medium truncate flex-1">{b.title}</span>
-                    <ChevronRight className="w-3.5 h-3.5 text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <ChevronRight className="w-3.5 h-3.5 text-[#111827]/20 opacity-0 group-hover:opacity-100 transition-opacity" />
                   </div>
                   <div className="flex items-center gap-2 mt-1">
-                    <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-medium ${statusColors[b.status] || 'bg-gray-100 text-gray-500'}`}>{b.status}</span>
-                    <span className="text-[10px] text-gray-400">{b.industry_context}</span>
+                    <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-medium ${statusColors[b.status] || 'bg-[#E5E7EB] text-[#111827]/50'}`}>{b.status}</span>
+                    <span className="text-[10px] text-[#111827]/30">{b.industry_context}</span>
                   </div>
                 </button>
               ))}
@@ -125,16 +125,16 @@ export default function DashboardLayout({ children }) {
           )}
         </div>
 
-        <div className="p-3 border-t border-gray-100">
+        <div className="p-3 border-t border-[#E5E7EB]">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-full bg-[#3B4F6B]/10 flex items-center justify-center text-xs font-medium text-[#3B4F6B]">{user?.name?.[0]?.toUpperCase() || 'U'}</div>
+              <div className="w-8 h-8 rounded-full bg-[#3B4F6B]/[0.08] flex items-center justify-center text-xs font-medium text-[#3B4F6B]">{user?.name?.[0]?.toUpperCase() || 'U'}</div>
               <div>
                 <p className="text-xs font-medium text-[#111827]">{user?.name}</p>
-                <p className="text-[10px] text-gray-400">{user?.email}</p>
+                <p className="text-[10px] text-[#111827]/30">{user?.email}</p>
               </div>
             </div>
-            <button onClick={handleLogout} className="p-2 rounded-lg hover:bg-gray-100 text-gray-400 hover:text-gray-600">
+            <button onClick={handleLogout} className="p-2 rounded-lg hover:bg-[#E5E7EB]/30 text-[#111827]/30 hover:text-[#111827]/60">
               <LogOut className="w-4 h-4" />
             </button>
           </div>
