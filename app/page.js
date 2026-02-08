@@ -56,7 +56,7 @@ export default function LandingPage() {
             Generate auditable PRDs, stakeholder critiques, and compliance checklists from a single product change. Built for teams that ship fast and stay compliant.
           </p>
           <div className="animate-fade-in-up flex items-center justify-center gap-4 mb-16" style={{animationDelay: '300ms'}}>
-            <button onClick={() => router.push('/signup')} className="pill-button bg-[#3B4F6B] text-white hover:bg-[#2d3d52] shadow-lg shadow-[#3B4F6B]/20 flex items-center gap-2">
+            <button onClick={() => router.push('/signup')} className="pill-button btn-press bg-[#3B4F6B] text-white hover:bg-[#2d3d52] shadow-lg shadow-[#3B4F6B]/20 flex items-center gap-2">
               Get Started <ArrowRight className="w-4 h-4" />
             </button>
             <button onClick={() => document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' })} className="pill-button border border-gray-200 text-gray-700 hover:border-gray-300 hover:bg-gray-50">
