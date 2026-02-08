@@ -159,7 +159,7 @@ export default function LandingPage() {
               { icon: Download, title: 'Export Packets', desc: 'Export complete decision briefs as Markdown, JSON, or formatted PDF with appendices.' },
               { icon: BarChart3, title: 'Traceability', desc: 'Full traceability from requirements to graph nodes with rationale and audit trails.' },
             ].map((f, i) => (
-              <div key={i} className="bg-white rounded-[18px] p-7 border border-[#E5E7EB] hover:shadow-[0_4px_20px_rgba(17,24,39,0.04)] transition-all duration-300">
+              <div key={i} className="card-hover bg-white rounded-[18px] p-7 border border-[#E5E7EB] animate-fade-in-up" style={{animationDelay: `${i * 80}ms`}}>
                 <div className="w-10 h-10 rounded-xl bg-[#3B4F6B]/[0.06] flex items-center justify-center mb-5">
                   <f.icon className="w-5 h-5 text-[#3B4F6B]" />
                 </div>
