@@ -406,7 +406,7 @@ export default function BriefWorkspace() {
                         <div className="flex items-center gap-4 pt-2 border-t border-[#E5E7EB]">
                           <div>
                             <p className="text-[10px] font-semibold text-[#111827]/30 uppercase tracking-widest mb-1">Recommendation</p>
-                            <span className={`text-sm font-semibold px-3 py-1 rounded-full ${execSummary.recommendation === 'go' ? 'bg-[#3B4F6B]/10 text-[#3B4F6B]' : execSummary.recommendation === 'no_go' ? 'bg-[#111827]/10 text-[#111827]' : 'bg-[#E5E7EB] text-[#111827]/60'}`}>
+                            <span className={`text-sm font-semibold px-3 py-1 rounded-full ${execSummary.recommendation === 'go' ? 'bg-green-50 text-green-700' : execSummary.recommendation === 'no_go' ? 'bg-red-50 text-red-700' : 'bg-amber-50 text-amber-700'}`}>
                               {RECOMMENDATION_LABELS[execSummary.recommendation] || execSummary.recommendation}
                             </span>
                           </div>
