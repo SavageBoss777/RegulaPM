@@ -55,7 +55,7 @@ export default function LandingPage() {
           <p className="animate-fade-in-up text-lg text-gray-500 max-w-2xl mx-auto mb-10 leading-relaxed" style={{animationDelay: '200ms'}}>
             Generate auditable PRDs, stakeholder critiques, and compliance checklists from a single product change. Built for teams that ship fast and stay compliant.
           </p>
-          <div className="flex items-center justify-center gap-4 mb-16">
+          <div className="animate-fade-in-up flex items-center justify-center gap-4 mb-16" style={{animationDelay: '300ms'}}>
             <button onClick={() => router.push('/signup')} className="pill-button bg-[#3B4F6B] text-white hover:bg-[#2d3d52] shadow-lg shadow-[#3B4F6B]/20 flex items-center gap-2">
               Get Started <ArrowRight className="w-4 h-4" />
             </button>
