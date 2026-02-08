@@ -316,11 +316,11 @@ export default function BriefWorkspace() {
           </button>
           <div>
             <h1 className="text-lg font-bold text-[#111827]">{brief.title}</h1>
-            <div className="flex items-center gap-3 text-xs text-gray-400">
+            <div className="flex items-center gap-3 text-xs text-[#111827]/30">
               <span className={`px-2 py-0.5 rounded-full font-medium ${statusColors[brief.status]}`}>{brief.status}</span>
               <span>{brief.industry_context}</span>
               <span>{brief.geography}</span>
-              <span>Updated {new Date(brief.updated_at).toLocaleDateString()}</span>
+              <span className="font-mono-ui">{new Date(brief.updated_at).toLocaleDateString()}</span>
             </div>
           </div>
         </div>
