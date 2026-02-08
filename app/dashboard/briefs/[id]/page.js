@@ -199,6 +199,8 @@ export default function BriefWorkspace() {
   async function handleGenerate() {
     setGenerating(true);
     setGenStage('Starting pipeline...');
+    // Reset error status before retrying
+    await fetch(`/api/briefs/${briefId}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ status: 'draft', error_message: null }) }).catch(() => {});
     const pollInterval = setInterval(async () => {
       try {
         const r = await fetch(`/api/briefs/${briefId}`);
@@ -207,7 +209,15 @@ export default function BriefWorkspace() {
         if (d.brief?.generation_stage) setGenStage(stageMap[d.brief.generation_stage] || d.brief.generation_stage);
       } catch {}
     }, 2000);
-    try { await fetch(`/api/briefs/${briefId}/generate`, { method: 'POST' }); clearInterval(pollInterval); await fetchBrief(); } catch {} finally { clearInterval(pollInterval); setGenerating(false); }
+    try {
+      const res = await fetch(`/api/briefs/${briefId}/generate`, { method: 'POST' });
+      clearInterval(pollInterval);
+      if (!res.ok) {
+        const text = await res.text();
+        try { const d = JSON.parse(text); setGenStage(d.error || 'Generation failed'); } catch { setGenStage('Generation failed. Please try again.'); }
+      }
+      await fetchBrief();
+    } catch {} finally { clearInterval(pollInterval); setGenerating(false); }
   }
 
   async function handleRegenerateSection(section) {
