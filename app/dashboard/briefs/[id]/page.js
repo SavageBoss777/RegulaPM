@@ -572,15 +572,15 @@ export default function BriefWorkspace() {
                   {brief.revisions?.length > 0 ? (
                     <div className="space-y-3">
                       {brief.revisions.map((rev, i) => (
-                        <div key={rev.id || i} className="bg-white rounded-2xl border border-gray-200 p-4 flex items-center gap-4">
-                          <div className="w-10 h-10 rounded-xl bg-[#3B4F6B]/5 flex items-center justify-center flex-shrink-0">
+                        <div key={rev.id || i} className="bg-white rounded-[18px] border border-[#E5E7EB] p-4 flex items-center gap-4">
+                          <div className="w-10 h-10 rounded-xl bg-[#3B4F6B]/[0.06] flex items-center justify-center flex-shrink-0">
                             <Clock className="w-5 h-5 text-[#3B4F6B]" />
                           </div>
                           <div className="flex-1">
                             <p className="text-sm font-medium text-[#111827]">{rev.summary}</p>
-                            <p className="text-xs text-gray-400">{new Date(rev.timestamp).toLocaleString()}</p>
+                            <p className="text-xs text-[#111827]/30 font-mono-ui mt-0.5">{new Date(rev.timestamp).toLocaleString()}</p>
                           </div>
-                          <span className="text-xs px-2 py-1 rounded-full bg-gray-100 text-gray-500 capitalize">{rev.type?.replace(/_/g, ' ')}</span>
+                          <span className="text-[10px] px-2.5 py-1 rounded-full bg-[#E5E7EB]/50 text-[#111827]/50 capitalize font-mono-ui">{rev.type?.replace(/_/g, ' ')}</span>
                         </div>
                       ))}
                     </div>
