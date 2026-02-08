@@ -73,10 +73,10 @@ export default function DashboardLayout({ children }) {
   }
 
   return (
-    <div className="flex h-screen bg-gray-50">
+    <div className="flex h-screen bg-white">
       {/* Sidebar */}
-      <aside className="w-72 bg-white border-r border-gray-200 flex flex-col">
-        <div className="p-4 border-b border-gray-100">
+      <aside className="w-72 bg-white border-r border-[#E5E7EB] flex flex-col">
+        <div className="p-4 border-b border-[#E5E7EB]">
           <div className="flex items-center gap-2 mb-4">
             <div className="w-8 h-8 rounded-lg bg-[#3B4F6B] flex items-center justify-center">
               <Shield className="w-4 h-4 text-white" />
@@ -90,12 +90,12 @@ export default function DashboardLayout({ children }) {
 
         <div className="p-3">
           <div className="relative mb-2">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-            <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search briefs..." className="w-full pl-9 pr-3 py-2 text-sm rounded-xl border border-gray-200 focus:border-[#3B4F6B] focus:ring-1 focus:ring-[#3B4F6B]/20 outline-none" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#111827]/30" />
+            <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search briefs..." className="w-full pl-9 pr-3 py-2 text-sm rounded-full border border-[#E5E7EB] focus:border-[#3B4F6B] focus:ring-1 focus:ring-[#3B4F6B]/15 outline-none text-[#111827]" />
           </div>
           <div className="flex gap-1 mb-2">
             {['all', 'draft', 'complete', 'generating'].map(f => (
-              <button key={f} onClick={() => setFilter(f)} className={`text-xs px-2.5 py-1 rounded-full capitalize transition-colors ${filter === f ? 'bg-[#3B4F6B] text-white' : 'text-gray-500 hover:bg-gray-100'}`}>{f}</button>
+              <button key={f} onClick={() => setFilter(f)} className={`text-xs px-2.5 py-1 rounded-full capitalize transition-colors ${filter === f ? 'bg-[#3B4F6B] text-white' : 'text-[#111827]/40 hover:bg-[#E5E7EB]/50'}`}>{f}</button>
             ))}
           </div>
         </div>
