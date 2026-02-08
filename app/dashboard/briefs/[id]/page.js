@@ -351,7 +351,7 @@ export default function BriefWorkspace() {
       </div>
 
       {/* Content */}
-      <div className="flex-1 overflow-auto bg-gray-50/50">
+      <div className="flex-1 overflow-auto bg-[#E5E7EB]/10">
         {!isGenerated && !generating ? (
           <div className="flex flex-col items-center justify-center h-full py-20">
             <div className="w-16 h-16 rounded-2xl bg-[#3B4F6B]/5 flex items-center justify-center mb-4">
