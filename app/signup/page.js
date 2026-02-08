@@ -22,7 +22,9 @@ export default function SignupPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password, name }),
       });
-      const data = await res.json();
+      let data;
+      const text = await res.text();
+      try { data = JSON.parse(text); } catch { throw new Error('Server returned an invalid response. Please try again.'); }
       if (!res.ok) throw new Error(data.error || 'Signup failed');
       router.push('/dashboard');
     } catch (err) {
