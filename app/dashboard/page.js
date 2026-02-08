@@ -89,9 +89,9 @@ export default function DashboardPage() {
           </div>
         </div>
       ) : (
-        <div className="grid gap-3">
+        <div className="grid gap-3 stagger-children">
           {briefs.map(b => (
-            <button key={b.id} onClick={() => router.push(`/dashboard/briefs/${b.id}`)} className="bg-white rounded-[18px] border border-[#E5E7EB] p-5 text-left hover:shadow-[0_4px_20px_rgba(17,24,39,0.04)] transition-all group">
+            <button key={b.id} onClick={() => router.push(`/dashboard/briefs/${b.id}`)} className="card-hover bg-white rounded-[18px] border border-[#E5E7EB] p-5 text-left animate-fade-in-up group">
               <div className="flex items-center justify-between">
                 <div className="flex-1">
                   <div className="flex items-center gap-3 mb-2">
