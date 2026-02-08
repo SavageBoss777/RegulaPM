@@ -311,7 +311,7 @@ export default function BriefWorkspace() {
     return layoutGraph(fg);
   }, [brief?.graph, graphFilter]);
 
-  const statusColors = { draft: 'bg-[#E5E7EB] text-[#111827]/60', generating: 'bg-[#3B4F6B]/10 text-[#3B4F6B]', complete: 'bg-[#3B4F6B]/10 text-[#3B4F6B]', error: 'bg-[#111827]/10 text-[#111827]/70' };
+  const statusColors = { draft: 'bg-[#E5E7EB] text-[#111827]/60', generating: 'bg-blue-50 text-blue-700 animate-pulse-soft', complete: 'bg-green-50 text-green-700', error: 'bg-red-50 text-red-700' };
 
   const tabs = [
     { id: 'summary', label: 'Summary', icon: Gauge },
