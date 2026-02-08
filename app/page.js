@@ -49,7 +49,7 @@ export default function LandingPage() {
           <div className="animate-fade-in-up inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#3B4F6B]/5 text-[#3B4F6B] text-sm font-medium mb-6">
             <Zap className="w-3.5 h-3.5" /> AI-Powered Product Governance
           </div>
-          <h1 className="text-5xl md:text-6xl font-extrabold text-[#111827] leading-tight tracking-tight mb-6">
+          <h1 className="animate-fade-in-up text-5xl md:text-6xl font-extrabold text-[#111827] leading-tight tracking-tight mb-6" style={{animationDelay: '100ms'}}>
             AI Governed<br />Product Decisions
           </h1>
           <p className="text-lg text-gray-500 max-w-2xl mx-auto mb-10 leading-relaxed">
