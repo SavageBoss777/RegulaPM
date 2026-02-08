@@ -518,7 +518,7 @@ export default function BriefWorkspace() {
 
             {/* ===== STAKEHOLDERS TAB ===== */}
             {activeTab === 'stakeholders' && brief.stakeholder_critiques && (
-              <div className="p-8 overflow-auto">
+              <div className="p-8 overflow-auto tab-content">
                 <div className="max-w-4xl mx-auto">
                   <h2 className="text-xl font-bold text-[#111827] mb-6">Stakeholder Critiques</h2>
                   <div className="grid gap-6">
