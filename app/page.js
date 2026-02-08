@@ -52,7 +52,7 @@ export default function LandingPage() {
           <h1 className="animate-fade-in-up text-5xl md:text-6xl font-extrabold text-[#111827] leading-tight tracking-tight mb-6" style={{animationDelay: '100ms'}}>
             AI Governed<br />Product Decisions
           </h1>
-          <p className="text-lg text-gray-500 max-w-2xl mx-auto mb-10 leading-relaxed">
+          <p className="animate-fade-in-up text-lg text-gray-500 max-w-2xl mx-auto mb-10 leading-relaxed" style={{animationDelay: '200ms'}}>
             Generate auditable PRDs, stakeholder critiques, and compliance checklists from a single product change. Built for teams that ship fast and stay compliant.
           </p>
           <div className="flex items-center justify-center gap-4 mb-16">
