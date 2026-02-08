@@ -596,7 +596,7 @@ export default function BriefWorkspace() {
                   </div>
                 </div>
                 <div className="flex-1 relative">
-                  {mounted && <ReactFlow nodes={graphData.nodes} edges={graphData.edges} nodeTypes={nodeTypes} fitView minZoom={0.3} maxZoom={2} onNodeClick={(_, node) => setSelectedNode(node)} proOptions={{ hideAttribution: true }}><Background color="#e5e7eb" gap={20} /><Controls position="bottom-left" /><MiniMap nodeColor={(n) => { const type = n.data?.nodeType || 'feature'; const colors = { feature: '#3B4F6B', risk: '#111827', compliance: '#3B4F6B', stakeholder: '#3B4F6B', metric: '#E5E7EB' }; return colors[type] || '#E5E7EB'; }} /></ReactFlow>}
+                  {mounted && <ReactFlow nodes={graphData.nodes} edges={graphData.edges} nodeTypes={nodeTypes} fitView minZoom={0.3} maxZoom={2} onNodeClick={(_, node) => setSelectedNode(node)} proOptions={{ hideAttribution: true }}><Background color="#e5e7eb" gap={20} /><Controls position="bottom-left" /><MiniMap nodeColor={(n) => { const type = n.data?.nodeType || 'feature'; const colors = { feature: '#3b82f6', risk: '#ef4444', compliance: '#f59e0b', stakeholder: '#22c55e', metric: '#a855f7' }; return colors[type] || '#E5E7EB'; }} /></ReactFlow>}
                   {selectedNode && (
                     <div className="absolute top-4 right-4 w-80 bg-white rounded-[18px] border border-[#E5E7EB] shadow-lg p-5 z-10">
                       <div className="flex items-center justify-between mb-3">
