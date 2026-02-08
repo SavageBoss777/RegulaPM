@@ -488,23 +488,96 @@ async function handleRegenerate(request, briefId) {
   const db = await connectToDatabase();
   const brief = await db.collection('decision_briefs').findOne({ id: briefId, user_id: user.id });
   if (!brief) return NextResponse.json({ error: 'Not found' }, { status: 404 });
+  const now = new Date().toISOString();
   try {
     if (type === 'section' && target && brief.entities && brief.graph) {
+      const oldContent = brief.prd_sections?.[target] || '';
       const sectionPrompt = `Regenerate ONLY the "${target}" section of a PRD for: ${brief.title}\n\nContext: ${brief.entities.feature_summary}\nIndustry: ${brief.industry_context}\n\nReturn JSON: {"${target}": "detailed markdown content for this section"}`;
       const result = await callGemini(sectionPrompt);
+      const newContent = result[target] || '';
       const updateKey = `prd_sections.${target}`;
-      await db.collection('decision_briefs').updateOne({ id: briefId }, { $set: { [updateKey]: result[target], updated_at: new Date().toISOString() }, $push: { revisions: { id: uuidv4(), timestamp: new Date().toISOString(), type: 'section_regeneration', summary: `Regenerated ${target}` } } });
+      const diffKey = `regeneration_diffs.${target}`;
+      await db.collection('decision_briefs').updateOne({ id: briefId }, {
+        $set: { [updateKey]: newContent, [diffKey]: { old_content: oldContent, new_content: newContent, timestamp: now }, [`section_statuses.${target}`]: 'needs_review', updated_at: now },
+        $push: { revisions: { id: uuidv4(), timestamp: now, type: 'section_regeneration', summary: `Regenerated ${target}` }, timeline_events: { id: uuidv4(), type: 'section_regenerated', label: `PRD section "${target}" regenerated`, timestamp: now, target } }
+      });
     } else if (type === 'stakeholder' && target && brief.entities) {
       const shPrompt = `Regenerate critique for the ${target} stakeholder regarding: ${brief.title}\n\nContext: ${brief.entities.feature_summary}\nIndustry: ${brief.industry_context}\n\nReturn JSON: {"concerns": ["..."], "required_controls": ["..."], "required_approvals": ["..."], "questions": ["..."]}`;
       const result = await callGemini(shPrompt);
       const updateKey = `stakeholder_critiques.${target}`;
-      await db.collection('decision_briefs').updateOne({ id: briefId }, { $set: { [updateKey]: result, updated_at: new Date().toISOString() }, $push: { revisions: { id: uuidv4(), timestamp: new Date().toISOString(), type: 'stakeholder_regeneration', summary: `Regenerated ${target} critique` } } });
+      await db.collection('decision_briefs').updateOne({ id: briefId }, {
+        $set: { [updateKey]: result, updated_at: now },
+        $push: { revisions: { id: uuidv4(), timestamp: now, type: 'stakeholder_regeneration', summary: `Regenerated ${target} critique` }, timeline_events: { id: uuidv4(), type: 'stakeholder_regenerated', label: `${target} critique regenerated`, timestamp: now, target } }
+      });
     }
     const updated = await db.collection('decision_briefs').findOne({ id: briefId });
     return NextResponse.json({ brief: updated });
   } catch (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
+}
+
+// ========== SECTION STATUS HANDLER ==========
+async function handleSectionStatus(request, briefId) {
+  const user = await getUser(request);
+  if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  const { section, status } = await request.json();
+  if (!section || !['approved', 'needs_review', 'risk_identified'].includes(status)) {
+    return NextResponse.json({ error: 'Invalid section or status' }, { status: 400 });
+  }
+  const db = await connectToDatabase();
+  const updateKey = `section_statuses.${section}`;
+  await db.collection('decision_briefs').updateOne({ id: briefId, user_id: user.id }, {
+    $set: { [updateKey]: status, updated_at: new Date().toISOString() },
+    $push: { timeline_events: { id: uuidv4(), type: 'status_changed', label: `"${section}" marked as ${status.replace('_', ' ')}`, timestamp: new Date().toISOString(), target: section, status } }
+  });
+  const brief = await db.collection('decision_briefs').findOne({ id: briefId });
+  return NextResponse.json({ brief });
+}
+
+// ========== ASSUMPTIONS HANDLER ==========
+async function handleAssumptions(request, briefId) {
+  const user = await getUser(request);
+  if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  const { description, source, confidence } = await request.json();
+  if (!description) return NextResponse.json({ error: 'Description required' }, { status: 400 });
+  const db = await connectToDatabase();
+  const assumption = { id: uuidv4(), description, source: source || 'user', confidence: confidence || 'medium', created_at: new Date().toISOString() };
+  await db.collection('decision_briefs').updateOne({ id: briefId, user_id: user.id }, {
+    $push: { assumptions: assumption, timeline_events: { id: uuidv4(), type: 'assumption_added', label: `Assumption added: "${description.slice(0, 60)}..."`, timestamp: new Date().toISOString() } },
+    $set: { updated_at: new Date().toISOString() }
+  });
+  const brief = await db.collection('decision_briefs').findOne({ id: briefId });
+  return NextResponse.json({ brief });
+}
+
+async function handleDeleteAssumption(request, briefId, assumptionId) {
+  const user = await getUser(request);
+  if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  const db = await connectToDatabase();
+  await db.collection('decision_briefs').updateOne({ id: briefId, user_id: user.id }, {
+    $pull: { assumptions: { id: assumptionId } },
+    $set: { updated_at: new Date().toISOString() }
+  });
+  const brief = await db.collection('decision_briefs').findOne({ id: briefId });
+  return NextResponse.json({ brief });
+}
+
+// ========== EXECUTIVE SUMMARY REFRESH ==========
+async function handleRefreshSummary(request, briefId) {
+  const user = await getUser(request);
+  if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  const db = await connectToDatabase();
+  const brief = await db.collection('decision_briefs').findOne({ id: briefId, user_id: user.id });
+  if (!brief || !brief.entities) return NextResponse.json({ error: 'Brief not generated' }, { status: 400 });
+  const riskLevels = brief.stakeholder_risk_levels || computeStakeholderRiskLevels(brief.stakeholder_critiques, brief.entities);
+  const summary = await generateExecutiveSummary(brief, brief.entities, brief.stakeholder_critiques, brief.checklist, riskLevels);
+  await db.collection('decision_briefs').updateOne({ id: briefId }, {
+    $set: { executive_summary: summary, updated_at: new Date().toISOString() },
+    $push: { timeline_events: { id: uuidv4(), type: 'summary_refreshed', label: 'Executive summary refreshed', timestamp: new Date().toISOString() } }
+  });
+  const updated = await db.collection('decision_briefs').findOne({ id: briefId });
+  return NextResponse.json({ brief: updated });
 }
 
 // ========== SEED HANDLER ==========
