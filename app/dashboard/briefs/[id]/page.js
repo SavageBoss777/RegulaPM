@@ -638,7 +638,7 @@ export default function BriefWorkspace() {
 
             {/* ===== ASSUMPTIONS TAB ===== */}
             {activeTab === 'assumptions' && (
-              <div className="p-8 overflow-auto">
+              <div className="p-8 overflow-auto tab-content">
                 <div className="max-w-3xl mx-auto">
                   <h2 className="text-xl font-bold text-[#111827] mb-2">Assumption Registry</h2>
                   <p className="text-sm text-[#111827]/40 mb-6">Track assumptions underlying this decision. Each assumption has a source and confidence level.</p>
