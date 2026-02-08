@@ -445,6 +445,8 @@ async function handleGetBrief(request, briefId) {
   const db = await connectToDatabase();
   const brief = await db.collection('decision_briefs').findOne({ id: briefId, user_id: user.id });
   if (!brief) return NextResponse.json({ error: 'Not found' }, { status: 404 });
+  // Compute readiness score on the fly
+  brief.readiness = computeReadinessScore(brief);
   return NextResponse.json({ brief });
 }
 
