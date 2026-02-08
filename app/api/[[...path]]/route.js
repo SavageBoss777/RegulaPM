@@ -644,6 +644,14 @@ async function routeRequest(request, path, method) {
   if (p.length === 3 && p[0] === 'briefs') {
     if (p[2] === 'generate' && method === 'POST') return handleGenerate(request, p[1]);
     if (p[2] === 'regenerate' && method === 'POST') return handleRegenerate(request, p[1]);
+    if (p[2] === 'section-status' && method === 'PUT') return handleSectionStatus(request, p[1]);
+    if (p[2] === 'assumptions' && method === 'POST') return handleAssumptions(request, p[1]);
+    if (p[2] === 'executive-summary' && method === 'POST') return handleRefreshSummary(request, p[1]);
+  }
+
+  // Brief sub-resource actions
+  if (p.length === 4 && p[0] === 'briefs' && p[2] === 'assumptions' && method === 'DELETE') {
+    return handleDeleteAssumption(request, p[1], p[3]);
   }
 
   // Seed
