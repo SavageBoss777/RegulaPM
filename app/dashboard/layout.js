@@ -125,7 +125,7 @@ export default function DashboardLayout({ children }) {
                   </div>
                   <div className="flex items-center gap-2 mt-1">
                     <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-medium ${statusColors[b.status] || 'bg-[#E5E7EB] text-[#111827]/50'}`}>{b.status}</span>
-                    <span className="text-[10px] text-[#111827]/30">{b.industry_context}</span>
+                    <span className={`text-[10px] font-medium ${industryColors[b.industry_context] || 'text-[#111827]/30'}`}>{b.industry_context}</span>
                   </div>
                 </button>
               ))}
