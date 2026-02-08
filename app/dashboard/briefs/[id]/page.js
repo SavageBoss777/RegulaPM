@@ -537,8 +537,8 @@ export default function BriefWorkspace() {
                       <Controls position="bottom-left" />
                       <MiniMap nodeColor={(n) => {
                         const type = n.data?.nodeType || 'feature';
-                        const colors = { feature: '#3B4F6B', risk: '#ef4444', compliance: '#f59e0b', stakeholder: '#10b981', metric: '#8b5cf6' };
-                        return colors[type] || '#94a3b8';
+                        const colors = { feature: '#3B4F6B', risk: '#111827', compliance: '#3B4F6B', stakeholder: '#3B4F6B', metric: '#E5E7EB' };
+                        return colors[type] || '#E5E7EB';
                       }} />
                     </ReactFlow>
                   )}
