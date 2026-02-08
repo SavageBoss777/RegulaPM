@@ -32,9 +32,17 @@ export default function DashboardPage() {
 
   const statusColors = {
     draft: 'bg-[#E5E7EB] text-[#111827]/60',
-    generating: 'bg-[#3B4F6B]/10 text-[#3B4F6B]',
-    complete: 'bg-[#3B4F6B]/10 text-[#3B4F6B]',
-    error: 'bg-[#111827]/10 text-[#111827]/70',
+    generating: 'bg-blue-50 text-blue-700',
+    complete: 'bg-green-50 text-green-700',
+    error: 'bg-red-50 text-red-700',
+  };
+
+  const industryColors = {
+    'Fintech': 'bg-blue-50 text-blue-700',
+    'Healthcare': 'bg-green-50 text-green-700',
+    'Insurance': 'bg-amber-50 text-amber-700',
+    'Enterprise SaaS': 'bg-purple-50 text-purple-700',
+    'Gov adjacent': 'bg-slate-100 text-slate-700',
   };
 
   if (loading) return (
