@@ -723,7 +723,7 @@ export default function BriefWorkspace() {
                 <div className="max-w-3xl mx-auto">
                   <h2 className="text-xl font-bold text-[#111827] mb-6">Export Decision Brief</h2>
                   <div className="grid md:grid-cols-3 gap-4">
-                    <button onClick={handleCopyMarkdown} className="bg-white rounded-[18px] border border-[#E5E7EB] p-6 text-left hover:shadow-[0_4px_20px_rgba(17,24,39,0.04)] transition-all">
+                    <button onClick={handleCopyMarkdown} className="card-hover bg-white rounded-[18px] border border-[#E5E7EB] p-6 text-left transition-all">
                       <div className="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center mb-4">{copied ? <Check className="w-5 h-5 text-blue-600" /> : <Copy className="w-5 h-5 text-blue-600" />}</div>
                       <h3 className="font-semibold text-[#111827] mb-1">{copied ? 'Copied!' : 'Copy Markdown'}</h3>
                       <p className="text-xs text-[#111827]/40">Copy full brief as formatted Markdown</p>
